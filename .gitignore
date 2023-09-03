@@ -1,0 +1,11 @@
+## OS X
+.DS_Store
+
+## Eclipse IDE
+bin/
+temp/
+.metadata
+*.tmp
+.settings/
+local.properties
+
