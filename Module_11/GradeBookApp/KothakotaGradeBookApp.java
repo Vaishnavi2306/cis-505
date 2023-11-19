@@ -10,6 +10,8 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -19,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -36,10 +40,15 @@ public class KothakotaGradeBookApp extends Application {
         grid.setVgap(10);
 
         // Labels
+        // Labels with padding
         Label firstNameLabel = new Label("First Name:");
+        firstNameLabel.setStyle("-fx-padding: 5px;");
         Label lastNameLabel = new Label("Last Name:");
+        lastNameLabel.setStyle("-fx-padding: 5px;");
         Label courseLabel = new Label("Course:");
+        courseLabel.setStyle("-fx-padding: 5px;");
         Label gradeLabel = new Label("Grade:");
+        gradeLabel.setStyle("-fx-padding: 5px;");
 
         // Text Fields
         TextField firstNameField = new TextField();
@@ -60,6 +69,13 @@ public class KothakotaGradeBookApp extends Application {
         Button saveButton = new Button("Save Entry");
         saveButton.setOnAction(e -> saveEntry(firstNameField.getText(), lastNameField.getText(),
                 courseField.getText(), gradeComboBox.getSelectionModel().getSelectedItem()));
+        
+        HBox actionBtnContainer = new HBox(); // Create HBox to be container of buttons.
+        actionBtnContainer.setPadding(new Insets(15, 0, 15, 30) ); // Set HBox padding.
+        actionBtnContainer.setSpacing(10); // Set HBox spacing.
+        actionBtnContainer.getChildren().add(clearButton); // Add btnClear to actionBtnContainer HBox.
+        actionBtnContainer.getChildren().add(viewEntriesButton); // Add btnViewGrades to actionBtnContainer HBox.
+        actionBtnContainer.getChildren().add(saveButton); // Add btnSave to actionBtnContainer HBox.
 
         // Adding elements to the grid
         grid.add(firstNameLabel, 0, 0);
@@ -70,10 +86,9 @@ public class KothakotaGradeBookApp extends Application {
         grid.add(courseField, 1, 2);
         grid.add(gradeLabel, 0, 3);
         grid.add(gradeComboBox, 1, 3);
-        grid.add(clearButton, 0, 4);
-        grid.add(viewEntriesButton, 1, 4);
-        grid.add(saveButton, 2, 4);
+        grid.add(actionBtnContainer, 1, 4); // Add actionBtnContainer to GridPane pane.
 
+        
      // TableView setup
         TableView<Student> tableView = new TableView<>();
         TableColumn<Student, String> firstNameCol = new TableColumn<>("First Name");
